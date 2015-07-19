@@ -1,8 +1,4 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
 
 output: html_document
 ---
@@ -106,7 +102,6 @@ missing_rows <-length(which(is.na(activity$steps)))
         
 2.      Devise a strategy for filling in all of the missing values in the dataset. The strategy does not need to be sophisticated. For example, you could use the mean/median for that day, or the mean for that 5-minute interval, etc.
 
-## Loading and preprocessing the data
 ```{r}
 #I have decided to generate random numbers for the steps taken.
 #As the measurement is steps per five minute period the rpois command seemed appropriate.
@@ -128,7 +123,6 @@ p_movement<-days_movement/days_count
 #calculate the average amount of steps if movement occurs
 mean_steps_move<-total_steps/days_movement
 
-## What is mean total number of steps taken per day?
 mod_act_summary<-data.frame(cbind(interval,p_movement,mean_steps_move))
 names(mod_act_summary) <- c("interval","p_movement","mean_steps_move")
 
@@ -164,7 +158,6 @@ for(i in 1:nrow(sim_activity)) {
 #checks our randomly determined variables with present values
 mean(sim_activity$steps)
 
-## What is the average daily activity pattern?
 mean(good_activity$steps)
 #recreates modified data set
 temp<-data.frame(cbind(sim_activity$steps,as.character(sim_activity$date),sim_activity$interval))
@@ -176,7 +169,6 @@ mod_activity$steps <-as.numeric(mod_activity$steps)
 mod_activity$date<-as.Date(as.character(mod_activity$date))
 ```
 
-## Imputing missing values
 4.      Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day.
         
 ```{r}
@@ -211,4 +203,3 @@ axis(2)
 axis(side=1, at=c(0,12*12,12*24), labels=c("00:00","12:00","23:55"))
 ```
 
-## Are there differences in activity patterns between weekdays and weekends?
